@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const trackingUrl = "https://t.acrsmartcam.com/403638/7083?bo=2779,2778,2777,2776,2775&aff_sub5=SF_006OG000004lmDN";
+  const trackingUrl = "https://www.google.com";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -17,8 +17,8 @@ const Navbar: React.FC = () => {
     }`}>
       <div className="container mx-auto px-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 accent-gradient rounded-full flex items-center justify-center font-bold text-lg text-white">R</div>
-          <span className="text-2xl font-serif font-bold tracking-tighter uppercase text-[#1C1C1C]">Romantic</span>
+          <div className="w-8 h-8 accent-gradient rounded-full flex items-center justify-center font-bold text-lg text-white">S</div>
+          <span className="text-2xl font-serif font-bold tracking-tighter uppercase text-[#1A1A1A]">Secret Desire Lounge</span>
         </div>
 
         <div className="hidden md:flex items-center gap-10">
@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
             <a 
               key={item} 
               href={trackingUrl}
-              className="text-sm font-medium text-[#1C1C1C]/60 hover:text-rose-600 transition-colors uppercase tracking-widest"
+              className="text-sm font-medium text-[#1A1A1A]/60 hover:text-rose-600 transition-colors uppercase tracking-widest"
             >
               {item}
             </a>
@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <a href={trackingUrl} className="text-sm font-medium text-[#1C1C1C]/80 hover:text-rose-600 px-4 py-2 transition-all">
+          <a href={trackingUrl} className="text-sm font-medium text-[#1A1A1A]/80 hover:text-rose-600 px-4 py-2 transition-all">
             Enter
           </a>
           <a href={trackingUrl} className="accent-gradient px-6 py-2.5 rounded-full text-sm font-semibold text-white shadow-lg hover:shadow-rose-500/40 hover:scale-105 transition-all active:scale-95 text-center">

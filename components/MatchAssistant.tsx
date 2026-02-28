@@ -8,7 +8,7 @@ interface MatchAssistantProps {
 
 const MatchAssistant: React.FC<MatchAssistantProps> = ({ onClose }) => {
   const [messages, setMessages] = useState<{role: 'ai' | 'user', text: string}[]>([
-    { role: 'ai', text: "Welcome to Romantic. I'm here to guide you to the connection you've been dreaming of. What is it that you truly desire tonight?" }
+    { role: 'ai', text: "Welcome to Secret Desire Lounge. I'm here to guide you to the connection you've been dreaming of. What is it that you truly desire tonight?" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ const MatchAssistant: React.FC<MatchAssistantProps> = ({ onClose }) => {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: `You are an alluring and sophisticated guide for 'Romantic', a high-end adult dating and streaming sanctuary. 
+        contents: `You are an alluring and sophisticated guide for 'Secret Desire Lounge', a high-end adult dating and streaming sanctuary. 
                   The user said: "${userMsg}". 
                   Respond in a sultry, inviting, and professional tone. Avoid words like 'membership', 'elite', or 'concierge'.
                   Keep it brief (under 50 words). Focus on making them feel seen and understood.`,
@@ -56,11 +56,11 @@ const MatchAssistant: React.FC<MatchAssistantProps> = ({ onClose }) => {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
             </div>
             <div>
-              <h3 className="font-serif text-lg text-[#1C1C1C]">Your Guide</h3>
+              <h3 className="font-serif text-lg text-[#1A1A1A]">Your Guide</h3>
               <p className="text-[10px] text-rose-500 uppercase tracking-widest font-bold">Waiting for You</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-black/5 rounded-full transition-colors text-[#1C1C1C]">
+          <button onClick={onClose} className="p-2 hover:bg-black/5 rounded-full transition-colors text-[#1A1A1A]">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
         </div>
@@ -69,7 +69,7 @@ const MatchAssistant: React.FC<MatchAssistantProps> = ({ onClose }) => {
           {messages.map((m, i) => (
             <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[80%] p-4 rounded-2xl shadow-sm ${
-                m.role === 'user' ? 'bg-rose-600 rounded-tr-none text-white' : 'bg-white rounded-tl-none border border-black/5 text-[#1C1C1C]'
+                m.role === 'user' ? 'bg-rose-600 rounded-tr-none text-white' : 'bg-white rounded-tl-none border border-black/5 text-[#1A1A1A]'
               }`}>
                 <p className="text-sm leading-relaxed">{m.text}</p>
               </div>
@@ -96,7 +96,7 @@ const MatchAssistant: React.FC<MatchAssistantProps> = ({ onClose }) => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Whisper your thoughts..."
-              className="w-full bg-[#FAF9F6] border border-black/10 rounded-2xl px-6 py-4 pr-16 focus:outline-none focus:border-rose-500 transition-colors text-[#1C1C1C]"
+              className="w-full bg-[#FAF9F6] border border-black/10 rounded-2xl px-6 py-4 pr-16 focus:outline-none focus:border-rose-500 transition-colors text-[#1A1A1A]"
             />
             <button 
               onClick={handleSend}
@@ -105,8 +105,8 @@ const MatchAssistant: React.FC<MatchAssistantProps> = ({ onClose }) => {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
             </button>
           </div>
-          <p className="text-center text-[10px] text-[#1C1C1C]/30 mt-4 italic">
-            Romantic Sanctuary • Absolute Discretion • Your Secret is Safe
+          <p className="text-center text-[10px] text-[#1A1A1A]/30 mt-4 italic">
+            Secret Desire Lounge Sanctuary • Absolute Discretion • Your Secret is Safe
           </p>
         </div>
       </div>

@@ -8,7 +8,7 @@ export const STREAMERS: Streamer[] = [
     name: 'Isabella',
     age: 24,
     location: 'Miami, FL',
-    imageUrl: 'https://i.ibb.co/WWp05kN4/1092a951-697c-4cfd-a12d-584a344ed350.png',
+    imageUrl: 'https://i.ibb.co/k62K8tWK/myyf255rzvn.jpg',
     isLive: true,
     viewers: 1240,
     category: 'Sensual Chat'

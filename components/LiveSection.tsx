@@ -3,7 +3,7 @@ import React from 'react';
 import { STREAMERS } from '../constants';
 
 const LiveSection: React.FC = () => {
-  const trackingUrl = "https://t.acrsmartcam.com/403638/7083?bo=2779,2778,2777,2776,2775&aff_sub5=SF_006OG000004lmDN";
+  const trackingUrl = "https://www.google.com";
 
   return (
     <section id="live" className="py-24 bg-white">
@@ -11,9 +11,9 @@ const LiveSection: React.FC = () => {
         <div className="flex items-end justify-between mb-12">
           <div>
             <h2 className="text-sm uppercase tracking-[0.4em] text-rose-500 font-bold mb-4">Waiting for You</h2>
-            <h3 className="text-4xl md:text-5xl font-serif text-[#1C1C1C]">Unveiling Tonight</h3>
+            <h3 className="text-4xl md:text-5xl font-serif text-[#1A1A1A]">Unveiling Tonight</h3>
           </div>
-          <a href={trackingUrl} className="text-sm font-semibold border-b border-black/10 pb-1 hover:text-rose-600 hover:border-rose-600 transition-all uppercase tracking-widest text-[#1C1C1C]/60">
+          <a href={trackingUrl} className="text-sm font-semibold border-b border-black/10 pb-1 hover:text-rose-600 hover:border-rose-600 transition-all uppercase tracking-widest text-[#1A1A1A]/60">
             See More Secrets
           </a>
         </div>
@@ -34,12 +34,12 @@ const LiveSection: React.FC = () => {
               {/* Top Badges */}
               <div className="absolute top-5 left-5 z-20 flex items-center gap-2">
                 {streamer.isLive && (
-                  <span className="bg-[#e11d48] text-[9px] font-black px-2.5 py-1.5 rounded-md flex items-center gap-1.5 text-white tracking-widest">
+                  <span className="bg-[#E11D48] text-[9px] font-black px-2.5 py-1.5 rounded-md flex items-center gap-1.5 text-white tracking-widest">
                     <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
                     ACTIVE
                   </span>
                 )}
-                <span className="bg-white/95 backdrop-blur-sm text-[9px] font-black px-2.5 py-1.5 rounded-md text-[#1C1C1C] tracking-widest uppercase">
+                <span className="bg-white/95 backdrop-blur-sm text-[9px] font-black px-2.5 py-1.5 rounded-md text-[#1A1A1A] tracking-widest uppercase">
                   {streamer.viewers.toLocaleString()} WITNESSING
                 </span>
               </div>
