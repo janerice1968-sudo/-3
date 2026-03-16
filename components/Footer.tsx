@@ -2,7 +2,7 @@
 import React from 'react';
 
 const Footer: React.FC = () => {
-  const trackingUrl = "https://www.google.com";
+  const trackingUrl = "https://t.acrsmartcam.com/406599/8873/37511?aff_sub5=SF_006OG000004lmDN";
 
   return (
     <footer className="bg-[#FDFCFB] pt-20 pb-10 border-t border-black/5">

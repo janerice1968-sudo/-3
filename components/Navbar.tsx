@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const trackingUrl = "https://www.google.com";
+  const trackingUrl = "https://t.acrsmartcam.com/406599/8873/37511?aff_sub5=SF_006OG000004lmDN";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);

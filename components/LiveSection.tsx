@@ -3,7 +3,7 @@ import React from 'react';
 import { STREAMERS } from '../constants';
 
 const LiveSection: React.FC = () => {
-  const trackingUrl = "https://www.google.com";
+  const trackingUrl = "https://t.acrsmartcam.com/406599/8873/37511?aff_sub5=SF_006OG000004lmDN";
 
   return (
     <section id="live" className="py-24 bg-white">
