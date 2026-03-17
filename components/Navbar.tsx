@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 accent-gradient rounded-full flex items-center justify-center font-bold text-lg text-white">S</div>
-          <span className="text-2xl font-serif font-bold tracking-tighter uppercase text-[#1A1A1A]">Secret Desire Lounge</span>
+          <span className={`text-2xl font-serif font-bold tracking-tighter uppercase transition-colors ${isScrolled ? 'text-[#1A1A1A]' : 'text-white'}`}>Secret Desire Lounge</span>
         </div>
 
         <div className="hidden md:flex items-center gap-10">
@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
             <button 
               key={item} 
               onClick={() => window.location.href = trackingUrl}
-              className="text-sm font-medium text-[#1A1A1A]/60 hover:text-rose-600 transition-colors uppercase tracking-widest"
+              className={`text-sm font-medium transition-colors uppercase tracking-widest ${isScrolled ? 'text-[#1A1A1A]/60 hover:text-rose-600' : 'text-white/80 hover:text-white'}`}
             >
               {item}
             </button>
@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center gap-4">
           <button 
             onClick={() => window.location.href = trackingUrl}
-            className="text-sm font-medium text-[#1A1A1A]/80 hover:text-rose-600 px-4 py-2 transition-all"
+            className={`text-sm font-medium px-4 py-2 transition-all ${isScrolled ? 'text-[#1A1A1A]/80 hover:text-rose-600' : 'text-white/90 hover:text-white'}`}
           >
             Enter
           </button>

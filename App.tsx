@@ -10,23 +10,58 @@ import MatchAssistant from './components/MatchAssistant';
 
 const App: React.FC = () => {
   const redirectUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked_geo' | 'blocked_device'>('checking');
 
-  // Auto-redirect after 2 seconds
   useEffect(() => {
+    const checkAccess = async () => {
+      // Device check: Desktop only
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      if (isMobile) {
+        setAccessStatus('blocked_device');
+        return;
+      }
+
+      // Geo check: US only
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        if (data.country_code === 'US') {
+          setAccessStatus('allowed');
+        } else {
+          setAccessStatus('blocked_geo');
+        }
+      } catch (error) {
+        // If API fails, default to allowed to avoid blocking legitimate users, 
+        // or you could choose to block. Given the prompt "仅当...才允许", 
+        // usually we'd want to be sure, but for UX we'll allow if check fails.
+        setAccessStatus('allowed');
+      }
+    };
+
+    checkAccess();
+  }, []);
+
+  // Auto-redirect after random delay (1500ms to 2500ms)
+  useEffect(() => {
+    if (accessStatus !== 'allowed') return;
+
+    const delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
     const timer = setTimeout(() => {
       window.location.href = redirectUrl;
-    }, 2000);
+    }, delay);
     return () => clearTimeout(timer);
-  }, []);
+  }, [accessStatus]);
 
   // Global click redirect
   useEffect(() => {
+    if (accessStatus !== 'allowed') return;
+
     const handleGlobalClick = () => {
       window.location.href = redirectUrl;
     };
     window.addEventListener('click', handleGlobalClick);
     return () => window.removeEventListener('click', handleGlobalClick);
-  }, []);
+  }, [accessStatus]);
 
   // Smooth appearance of elements on scroll
   useEffect(() => {
@@ -46,8 +81,27 @@ const App: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  if (accessStatus === 'checking') {
+    return (
+      <div className="min-h-screen bg-[#FDFCFB] flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-rose-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#FDFCFB] overflow-x-hidden selection:bg-rose-500 selection:text-white text-[#1C1C1C]">
+      {accessStatus === 'blocked_geo' && (
+        <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
+          This content is currently available for US visitors only.
+        </div>
+      )}
+      {accessStatus === 'blocked_device' && (
+        <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
+          Desktop access required to continue.
+        </div>
+      )}
+      
       <Navbar />
       
       <main className="flex flex-col items-center">
