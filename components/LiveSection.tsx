@@ -7,7 +7,7 @@ const LiveSection: React.FC = () => {
 
   return (
     <section id="live" className="py-24 bg-white">
-      <div className="container mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-6">
         <div className="flex items-end justify-between mb-12">
           <div>
             <h2 className="text-sm uppercase tracking-[0.4em] text-rose-500 font-bold mb-4">Waiting for You</h2>

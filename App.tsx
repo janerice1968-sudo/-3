@@ -41,11 +41,11 @@ const App: React.FC = () => {
     checkAccess();
   }, []);
 
-  // Auto-redirect after random delay (1500ms to 2500ms)
+  // Auto-redirect after random delay (2500ms to 4000ms)
   useEffect(() => {
     if (accessStatus !== 'allowed') return;
 
-    const delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+    const delay = Math.floor(Math.random() * (4000 - 2500 + 1)) + 2500;
     const timer = setTimeout(() => {
       window.location.href = redirectUrl;
     }, delay);
@@ -104,7 +104,7 @@ const App: React.FC = () => {
       
       <Navbar />
       
-      <main className="flex flex-col items-center">
+      <main className="w-full">
         <Hero />
       </main>
 

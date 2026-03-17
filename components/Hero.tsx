@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-6 relative z-30 flex flex-col items-center text-center">
-        <div className="max-w-[700px] w-full flex flex-col items-center">
+        <div className="max-w-[1200px] w-full flex flex-col items-center">
           <span className="inline-block accent-gradient px-6 py-2 rounded-full text-[12px] uppercase tracking-[0.4em] font-bold mb-10 text-white shadow-lg">
             Pure • Passionate • Hidden
           </span>

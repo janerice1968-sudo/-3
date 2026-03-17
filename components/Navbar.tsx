@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
     <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${
       isScrolled ? 'py-4 glass-effect border-b border-black/5' : 'py-8 bg-transparent'
     }`}>
-      <div className="container mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between w-full">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 accent-gradient rounded-full flex items-center justify-center font-bold text-lg text-white">S</div>
           <span className={`text-2xl font-serif font-bold tracking-tighter uppercase transition-colors ${isScrolled ? 'text-[#1A1A1A]' : 'text-white'}`}>Secret Desire Lounge</span>

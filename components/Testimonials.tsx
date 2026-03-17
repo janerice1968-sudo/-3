@@ -21,7 +21,7 @@ const Testimonials: React.FC = () => {
 
   return (
     <section className="py-24 bg-white">
-      <div className="container mx-auto px-6 text-center">
+      <div className="max-w-[1200px] mx-auto px-6 text-center">
         <h2 className="text-sm uppercase tracking-[0.4em] text-rose-500 font-bold mb-4">Whispers</h2>
         <h3 className="text-4xl font-serif mb-16 text-[#1A1A1A]">From the Inner Circle</h3>
         

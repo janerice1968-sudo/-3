@@ -22,7 +22,7 @@ const Features: React.FC = () => {
 
   return (
     <section className="py-24 bg-[#FAF5F5]">
-      <div className="container mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-16">
           {features.map((f, i) => (
             <div key={i} className="relative">
