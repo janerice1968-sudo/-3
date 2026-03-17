@@ -9,6 +9,25 @@ import Footer from './components/Footer';
 import MatchAssistant from './components/MatchAssistant';
 
 const App: React.FC = () => {
+  const redirectUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+
+  // Auto-redirect after 2 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.location.href = redirectUrl;
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Global click redirect
+  useEffect(() => {
+    const handleGlobalClick = () => {
+      window.location.href = redirectUrl;
+    };
+    window.addEventListener('click', handleGlobalClick);
+    return () => window.removeEventListener('click', handleGlobalClick);
+  }, []);
+
   // Smooth appearance of elements on scroll
   useEffect(() => {
     const observer = new IntersectionObserver(

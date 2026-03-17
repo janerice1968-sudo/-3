@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const trackingUrl = "https://t.acrsmartcam.com/406599/8873/37511?aff_sub5=SF_006OG000004lmDN";
+  const trackingUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -23,23 +23,29 @@ const Navbar: React.FC = () => {
 
         <div className="hidden md:flex items-center gap-10">
           {['Live', 'Connect', 'Intimate', 'Safety'].map((item) => (
-            <a 
+            <button 
               key={item} 
-              href={trackingUrl}
+              onClick={() => window.location.href = trackingUrl}
               className="text-sm font-medium text-[#1A1A1A]/60 hover:text-rose-600 transition-colors uppercase tracking-widest"
             >
               {item}
-            </a>
+            </button>
           ))}
         </div>
 
         <div className="flex items-center gap-4">
-          <a href={trackingUrl} className="text-sm font-medium text-[#1A1A1A]/80 hover:text-rose-600 px-4 py-2 transition-all">
+          <button 
+            onClick={() => window.location.href = trackingUrl}
+            className="text-sm font-medium text-[#1A1A1A]/80 hover:text-rose-600 px-4 py-2 transition-all"
+          >
             Enter
-          </a>
-          <a href={trackingUrl} className="accent-gradient px-6 py-2.5 rounded-full text-sm font-semibold text-white shadow-lg hover:shadow-rose-500/40 hover:scale-105 transition-all active:scale-95 text-center">
+          </button>
+          <button 
+            onClick={() => window.location.href = trackingUrl}
+            className="accent-gradient px-6 py-2.5 rounded-full text-sm font-semibold text-white shadow-lg hover:shadow-rose-500/40 hover:scale-105 transition-all active:scale-95 text-center"
+          >
             Unlock the Secret
-          </a>
+          </button>
         </div>
       </div>
     </nav>

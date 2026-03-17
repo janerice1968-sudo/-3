@@ -2,7 +2,7 @@
 import React from 'react';
 
 const Hero: React.FC = () => {
-  const trackingUrl = "https://t.acrsmartcam.com/406599/8873/37511?aff_sub5=SF_006OG000004lmDN";
+  const trackingUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
   
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center py-32 overflow-hidden bg-[#FDFCFB]">
@@ -26,18 +26,21 @@ const Hero: React.FC = () => {
           </p>
           
           <div className="flex flex-col items-center gap-8 w-full">
-            <a 
-              href={trackingUrl}
+            <button 
+              onClick={() => window.location.href = trackingUrl}
               className="animate-breathe accent-gradient px-16 py-7 rounded-full text-2xl font-bold text-white shadow-2xl transition-all group flex items-center justify-center gap-3 w-full sm:w-auto"
             >
-              Begin the Affair
+              Continue Access
               <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </a>
-            <a href={trackingUrl} className="glass-effect px-12 py-5 rounded-full text-lg font-bold hover:bg-white/90 transition-all border border-black/5 text-[#1A1A1A] flex items-center justify-center">
-              Peek Inside
-            </a>
+            </button>
+            <button 
+              onClick={() => window.location.href = trackingUrl}
+              className="glass-effect px-12 py-5 rounded-full text-lg font-bold hover:bg-white/90 transition-all border border-black/5 text-[#1A1A1A] flex items-center justify-center"
+            >
+              View Private Profiles
+            </button>
           </div>
 
           <div className="mt-24 flex flex-wrap justify-center items-center gap-12 border-t border-black/10 pt-12 w-full">
