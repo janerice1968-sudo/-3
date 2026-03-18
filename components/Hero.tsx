@@ -2,7 +2,7 @@
 import React from 'react';
 
 const Hero: React.FC = () => {
-  const trackingUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+  const trackingUrl = "https://t.acrsmartcam.com/402888/8873/0?aff_sub5=SF_006OG000004lmDN";
   
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center py-32 overflow-hidden bg-[#FDFCFB]">
