@@ -32,28 +32,13 @@ const App: React.FC = () => {
 
       // 再检测代理/VPN/机房
       try {
-        const proxyRes = await fetch(`https://proxycheck.io/v2/${ip}?vpn=1&asn=1`);
+        const proxyRes = await fetch(`https://ipapi.co/${ip}/json/`);
         const proxyData = await proxyRes.json();
-        console.log("proxycheck:", proxyData);
 
-        let localAllowRedirect = false;
-        const isp = (proxyData[ip]?.provider || "").toLowerCase();
-        const type = (proxyData[ip]?.type || "").toLowerCase();
-
-        console.log({
-          country,
-          isDesktop,
-          proxy: proxyData[ip]?.proxy,
-          type,
-          isp
-        });
+        let isp = (proxyData.org || "").toLowerCase();
+        let type = "";
 
         if (
-          country !== "US" ||
-          !isDesktop ||
-          (proxyData[ip] && proxyData[ip].proxy === "yes") ||
-          type === "hosting" ||
-          type === "vpn" ||
           isp.includes("amazon") ||
           isp.includes("aws") ||
           isp.includes("google") ||
@@ -64,57 +49,43 @@ const App: React.FC = () => {
           isp.includes("ovh") ||
           isp.includes("vultr")
         ) {
-          document.body.innerHTML = '<h1 style="text-align:center;margin-top:120px;">Access restricted. Please use a US residential desktop.</h1>';
+          type = "hosting";
+        }
+
+        if (
+          country !== "US" ||
+          !isDesktop ||
+          type === "hosting"
+        ) {
+          document.body.innerHTML = "Access restricted";
           return;
         }
 
-        localAllowRedirect = true;
-
-        if (localAllowRedirect) {
-          var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
-
-          setTimeout(function () {
-            window.location.href = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
-          }, delay);
-        }
-
         setAccessStatus('allowed');
-        setAllowRedirect(true);
+        setAllowRedirect(false);
       } catch (e) {
-        console.log("proxycheck error", e);
+        console.log("check error", e);
         if (country !== "US" || !isDesktop) {
-          document.body.innerHTML = '<h1 style="text-align:center;margin-top:120px;">Access restricted. Please use a US residential desktop.</h1>';
+          document.body.innerHTML = "Access restricted";
           return;
         }
-        
-        var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
-        setTimeout(function () {
-          window.location.href = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
-        }, delay);
-
         setAccessStatus('allowed');
-        setAllowRedirect(true);
+        setAllowRedirect(false);
       }
     };
 
     checkAccess();
   }, []);
 
-  // Global click interceptor for all buttons (Unified interception logic)
+  // Global click interceptor - disabled for now
   useEffect(() => {
     const handleGlobalClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      // 所有按钮点击直接跳转
-      const clickable = target.closest('button, a');
-      
-      if (clickable) {
-        e.preventDefault();
-        window.location.href = redirectUrl;
-      }
+      // e.preventDefault();
+      // window.location.href = redirectUrl;
     };
 
-    window.addEventListener('click', handleGlobalClick, true);
-    return () => window.removeEventListener('click', handleGlobalClick, true);
+    // window.addEventListener('click', handleGlobalClick, true);
+    // return () => window.removeEventListener('click', handleGlobalClick, true);
   }, []);
 
   // Smooth appearance of elements on scroll
