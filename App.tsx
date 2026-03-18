@@ -6,11 +6,10 @@ import LiveSection from './components/LiveSection';
 import Features from './components/Features';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
-import MatchAssistant from './components/MatchAssistant';
 
 const App: React.FC = () => {
   const redirectUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
-  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked_geo' | 'blocked_device'>('checking');
+  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked_geo_quality' | 'blocked_device'>('checking');
 
   useEffect(() => {
     const checkAccess = async () => {
@@ -21,18 +20,28 @@ const App: React.FC = () => {
         return;
       }
 
-      // Geo check: US only
+      // Geo and IP Quality check
       try {
-        const response = await fetch('https://ipapi.co/json/');
+        const response = await fetch('https://ipwho.is/');
         const data = await response.json();
         
-        if (data.country_code === 'US') {
+        if (!data.success) {
+          // Fallback to allowed if API fails to avoid blocking legitimate users
           setAccessStatus('allowed');
+          return;
+        }
+
+        const isUS = data.country_code === 'US';
+        const isProxy = data.security?.proxy || data.security?.vpn || data.security?.tor || data.security?.relay;
+        const isHosting = data.connection?.type === 'hosting' || data.connection?.type === 'datacenter';
+
+        if (!isUS || isProxy || isHosting) {
+          setAccessStatus('blocked_geo_quality');
         } else {
-          setAccessStatus('blocked_geo');
+          setAccessStatus('allowed');
         }
       } catch (error) {
-        // Fallback to allowed if API fails to avoid blocking legitimate users
+        // Fallback to allowed if API fails
         setAccessStatus('allowed');
       }
     };
@@ -90,9 +99,9 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FDFCFB] overflow-x-hidden selection:bg-rose-500 selection:text-white text-[#1C1C1C]">
-      {accessStatus === 'blocked_geo' && (
+      {accessStatus === 'blocked_geo_quality' && (
         <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
-          This content is available for US visitors only.
+          Access restricted. Please use a residential US network.
         </div>
       )}
       {accessStatus === 'blocked_device' && (
@@ -105,6 +114,9 @@ const App: React.FC = () => {
       
       <main className="w-full">
         <Hero />
+        <LiveSection />
+        <Features />
+        <Testimonials />
       </main>
 
       <Footer />
