@@ -40,6 +40,14 @@ const App: React.FC = () => {
         const isp = (proxyData[ip]?.provider || "").toLowerCase();
         const type = (proxyData[ip]?.type || "").toLowerCase();
 
+        console.log({
+          country,
+          isDesktop,
+          proxy: proxyData[ip]?.proxy,
+          type,
+          isp
+        });
+
         if (
           country !== "US" ||
           !isDesktop ||
