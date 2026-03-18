@@ -33,7 +33,6 @@ const Hero: React.FC = () => {
           
           <div className="flex flex-col items-center gap-8 w-full">
             <button 
-              onClick={() => window.location.href = trackingUrl}
               className="animate-breathe accent-gradient px-16 py-7 rounded-full text-2xl font-bold text-white shadow-2xl transition-all group flex items-center justify-center gap-3 w-full sm:w-auto"
             >
               Continue Access
@@ -42,7 +41,6 @@ const Hero: React.FC = () => {
               </svg>
             </button>
             <button 
-              onClick={() => window.location.href = trackingUrl}
               className="glass-effect px-12 py-5 rounded-full text-lg font-bold bg-white/10 hover:bg-white/20 backdrop-blur-md transition-all border border-white/20 text-white flex items-center justify-center"
             >
               View Private Profiles

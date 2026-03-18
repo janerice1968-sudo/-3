@@ -25,7 +25,6 @@ const Navbar: React.FC = () => {
           {['Live', 'Connect', 'Intimate', 'Safety'].map((item) => (
             <button 
               key={item} 
-              onClick={() => window.location.href = trackingUrl}
               className={`text-sm font-medium transition-colors uppercase tracking-widest ${isScrolled ? 'text-[#1A1A1A]/60 hover:text-rose-600' : 'text-white/80 hover:text-white'}`}
             >
               {item}
@@ -35,13 +34,11 @@ const Navbar: React.FC = () => {
 
         <div className="flex items-center gap-4">
           <button 
-            onClick={() => window.location.href = trackingUrl}
             className={`text-sm font-medium px-4 py-2 transition-all ${isScrolled ? 'text-[#1A1A1A]/80 hover:text-rose-600' : 'text-white/90 hover:text-white'}`}
           >
             Enter
           </button>
           <button 
-            onClick={() => window.location.href = trackingUrl}
             className="accent-gradient px-6 py-2.5 rounded-full text-sm font-semibold text-white shadow-lg hover:shadow-rose-500/40 hover:scale-105 transition-all active:scale-95 text-center"
           >
             Unlock the Secret

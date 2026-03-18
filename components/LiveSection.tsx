@@ -14,7 +14,6 @@ const LiveSection: React.FC = () => {
             <h3 className="text-4xl md:text-5xl font-serif text-[#1A1A1A]">Unveiling Tonight</h3>
           </div>
           <button 
-            onClick={() => window.location.href = trackingUrl}
             className="text-sm font-semibold border-b border-black/10 pb-1 hover:text-rose-600 hover:border-rose-600 transition-all uppercase tracking-widest text-[#1A1A1A]/60"
           >
             See More Secrets
@@ -61,7 +60,6 @@ const LiveSection: React.FC = () => {
                 
                 {/* Enticing CTA on hover */}
                 <button 
-                  onClick={() => window.location.href = trackingUrl} 
                   className="block w-full bg-white text-rose-600 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all duration-300 active:scale-95 shadow-xl text-center"
                 >
                   Join Her Room
