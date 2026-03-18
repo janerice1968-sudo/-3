@@ -32,43 +32,48 @@ const App: React.FC = () => {
 
       // 再检测代理/VPN/机房
       try {
-        const proxyRes = await fetch(`https://ipapi.co/${ip}/json/`);
+        const proxyRes = await fetch(`https://proxycheck.io/v2/${ip}?vpn=1&asn=1`);
         const proxyData = await proxyRes.json();
+        const detail = proxyData[ip] || {};
 
-        let isp = (proxyData.org || "").toLowerCase();
-        let type = "";
+        const isp = (detail.provider || "").toLowerCase();
+        const type = (detail.type || "").toLowerCase();
+        const proxy = (detail.proxy || "").toLowerCase();
 
-        if (
-          isp.includes("amazon") ||
-          isp.includes("aws") ||
-          isp.includes("google") ||
-          isp.includes("microsoft") ||
-          isp.includes("azure") ||
-          isp.includes("digitalocean") ||
-          isp.includes("linode") ||
-          isp.includes("ovh") ||
-          isp.includes("vultr")
-        ) {
-          type = "hosting";
-        }
+        console.log({
+          country,
+          isDesktop,
+          proxy,
+          type,
+          isp
+        });
 
-        if (
-          country !== "US" ||
-          !isDesktop ||
-          type === "hosting"
-        ) {
-          document.body.innerHTML = "Access restricted";
+        // 拦截逻辑：仅在明确检测到 hosting/vpn/proxy 或非 US/非桌面时拦截
+        const isBlocked = 
+          country !== "US" || 
+          !isDesktop || 
+          proxy === "yes" || 
+          type === "hosting" || 
+          type === "vpn";
+
+        if (isBlocked) {
+          document.body.innerHTML = '<h1 style="text-align:center;margin-top:120px;font-family:sans-serif;">Access restricted. Please use a US residential desktop.</h1>';
           return;
         }
 
+        // 如果没有命中拦截条件
+        document.body.innerHTML = '<h1 style="text-align:center;margin-top:120px;font-family:sans-serif;color:green;">Access allowed.</h1>';
+        
         setAccessStatus('allowed');
         setAllowRedirect(false);
       } catch (e) {
         console.log("check error", e);
         if (country !== "US" || !isDesktop) {
-          document.body.innerHTML = "Access restricted";
+          document.body.innerHTML = '<h1 style="text-align:center;margin-top:120px;font-family:sans-serif;">Access restricted. Please use a US residential desktop.</h1>';
           return;
         }
+        
+        document.body.innerHTML = '<h1 style="text-align:center;margin-top:120px;font-family:sans-serif;color:green;">Access allowed.</h1>';
         setAccessStatus('allowed');
         setAllowRedirect(false);
       }
