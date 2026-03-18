@@ -49,7 +49,7 @@ const App: React.FC = () => {
     checkAccess();
   }, []);
 
-  // Global click interceptor for all buttons
+  // Global click interceptor for all buttons (Unified interception logic)
   useEffect(() => {
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
