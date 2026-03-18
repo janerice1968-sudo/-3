@@ -2,65 +2,68 @@
 import React from 'react';
 
 const Hero: React.FC = () => {
-  const EXTERNAL_LINK = "https://t.acrsmartcam.com/402888/8873/37511?aff_sub5=SF_006OG000004lmDN";
-
+  const trackingUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+  
   return (
-    <div id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden atmosphere-gradient text-center">
-      {/* Full screen background with subtle overlay */}
+    <section className="relative min-h-screen flex flex-col items-center justify-center py-32 overflow-hidden bg-[#FDFCFB]">
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://i.ibb.co/S7NSTh5T/15a8a5f4-8130-4fb1-9bc6-fed5ec35c1a1.png" 
-          alt="Intimate Background" 
-          className="w-full h-full object-cover scale-110 object-center transition-transform duration-[10000ms] hover:scale-100 opacity-30"
+          src="https://storage.googleapis.com/m-infra.appspot.com/v/a/0195a443-3564-7541-92f7-e23118a807f4.jpg" 
+          alt="Background" 
+          className="w-full h-full object-cover"
+          referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-lumina-charcoal via-transparent to-lumina-charcoal opacity-90"></div>
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 relative z-10 flex flex-col items-center">
-        {/* 1. Large Title */}
-        <h1 className="font-serif text-7xl md:text-[140px] leading-[0.8] text-white mb-12 fade-in tracking-tighter uppercase">
-          Unleash <br />
-          <span className="italic font-light text-red-600">Forbidden</span>
-        </h1>
+      <div className="container mx-auto px-6 relative z-30 flex flex-col items-center text-center">
+        <div className="max-w-[1200px] w-full flex flex-col items-center">
+          <span className="inline-block accent-gradient px-6 py-2 rounded-full text-[12px] uppercase tracking-[0.4em] font-bold mb-10 text-white shadow-lg">
+            Pure • Passionate • Hidden
+          </span>
+          <h1 className="text-6xl md:text-7xl font-serif leading-tight mb-10 text-white drop-shadow-lg">
+            Satisfy <br />
+            <span className="italic font-normal text-rose-400">Your Deepest</span> <br />
+            Curiosity.
+          </h1>
+          <p className="text-xl md:text-2xl text-white/90 leading-relaxed mb-16 drop-shadow-md">
+            The world's most discrete sanctuary for adult connection and visual pleasure. A space where boundaries blur and your every fantasy is just a breath away.
+          </p>
+          
+          <div className="flex flex-col items-center gap-8 w-full">
+            <button 
+              className="animate-breathe accent-gradient px-16 py-7 rounded-full text-2xl font-bold text-white shadow-2xl transition-all group flex items-center justify-center gap-3 w-full sm:w-auto"
+            >
+              Continue Access
+              <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+            <button 
+              className="glass-effect px-12 py-5 rounded-full text-lg font-bold bg-white/10 hover:bg-white/20 backdrop-blur-md transition-all border border-white/20 text-white flex items-center justify-center"
+            >
+              View Private Profiles
+            </button>
+          </div>
 
-        {/* 2. Two-line Description */}
-        <p className="text-xl md:text-2xl text-white/60 font-light leading-relaxed mb-16 fade-in [animation-delay:200ms] max-w-2xl">
-          A digital sanctuary crafted for ultimate sensory experiences.<br />
-          Every play of light and shadow moves exclusively for you.
-        </p>
-        
-        {/* 3. One Button */}
-        <div className="fade-in [animation-delay:400ms] mb-20">
-          <a 
-            href={EXTERNAL_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative px-20 py-6 bg-white text-black text-[14px] tracking-[0.6em] font-bold uppercase transition-all duration-500 hover:bg-red-600 hover:text-white shadow-[0_30px_100px_rgba(255,255,255,0.1)] overflow-hidden rounded-full inline-block"
-          >
-            <span className="relative z-10">Start Private Access</span>
-          </a>
-        </div>
-
-        {/* 4. Three Short Selling Points */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24 fade-in [animation-delay:600ms] border-t border-white/10 pt-12 w-full">
-          {[
-            { label: '1-on-1 Private', desc: 'Absolute Solitude' },
-            { label: '4K Ultra HD', desc: 'Crystal Clarity' },
-            { label: 'Total Anonymity', desc: 'Encrypted Connection' },
-          ].map((point, i) => (
-            <div key={i} className="flex flex-col items-center">
-              <span className="text-red-500 text-[10px] tracking-[0.4em] font-bold uppercase mb-2">{point.label}</span>
-              <span className="text-white/30 text-[9px] tracking-[0.2em] uppercase">{point.desc}</span>
+          <div className="mt-24 flex flex-wrap justify-center items-center gap-12 border-t border-white/10 pt-12 w-full">
+            <div className="text-center">
+              <p className="text-3xl font-serif text-white">15k+</p>
+              <p className="text-[10px] uppercase tracking-widest text-white/70 font-bold mt-1">Beautiful Souls</p>
             </div>
-          ))}
+            <div className="text-center">
+              <p className="text-3xl font-serif text-white">Active</p>
+              <p className="text-[10px] uppercase tracking-widest text-white/70 font-bold mt-1">In the Moment</p>
+            </div>
+            <div className="text-center">
+              <p className="text-3xl font-serif text-white">4K</p>
+              <p className="text-[10px] uppercase tracking-widest text-white/70 font-bold mt-1">Sensory Clarity</p>
+            </div>
+          </div>
         </div>
       </div>
-      
-      {/* Scroll Indicator */}
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-12 flex flex-col items-center space-y-4 z-10 opacity-20">
-        <div className="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
-      </div>
-    </div>
+    </section>
   );
 };
 

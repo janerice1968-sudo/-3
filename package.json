@@ -1,5 +1,5 @@
 {
-  "name": "soft-desire-room-premium-private-sanctuary",
+  "name": "secret-desire-lounge",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,9 +10,9 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@google/genai": "^1.39.0",
     "react-dom": "^19.2.4",
-    "react": "^19.2.4",
-    "@google/genai": "^1.39.0"
+    "react": "^19.2.4"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
