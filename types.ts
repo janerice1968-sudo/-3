@@ -1,18 +1,20 @@
 
-export interface Streamer {
+export interface InspirationResult {
+  title: string;
+  description: string;
+  elements: string[];
+}
+
+export interface GalleryItem {
   id: string;
-  name: string;
-  age: number;
-  location: string;
-  imageUrl: string;
-  isLive: boolean;
-  viewers: number;
+  url: string;
+  title: string;
   category: string;
 }
 
-export interface Testimonial {
-  id: string;
-  quote: string;
-  author: string;
-  role: string;
+export enum NavigationSection {
+  Home = 'home',
+  Philosophy = 'philosophy',
+  Gallery = 'gallery',
+  Experience = 'experience'
 }
