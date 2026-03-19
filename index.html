@@ -1,66 +1,169 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Desire Lounge | Premium Adult Connections</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FDFCFB;
-            color: #1A1A1A;
-            scroll-behavior: smooth;
-        }
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-        .gradient-overlay {
-            background: linear-gradient(0deg, #FDFCFB 0%, rgba(253,252,251,0.2) 50%, rgba(253,252,251,0) 100%);
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
-        }
-        .accent-gradient {
-            background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
-        }
-        .card-shadow {
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
-        }
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); box-shadow: 0 20px 40px rgba(225, 29, 72, 0.3); }
-            50% { transform: scale(1.05); box-shadow: 0 25px 50px rgba(225, 29, 72, 0.5); }
-        }
-        .animate-breathe {
-            animation: breathe 3s ease-in-out infinite;
-        }
-        @keyframes slide-down {
-            0% { transform: translateY(-100%); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-        .animate-slide-down {
-            animation: slide-down 0.5s ease-out forwards;
-        }
-    </style>
-<script type="importmap">
-{
-  "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="google" content="notranslate">
+  <title>Access Verification</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4f6fb;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1a1a1a;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 480px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .icon {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: 26px;
+    }
+
+    p {
+      margin: 0;
+      color: #555;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .box {
+      margin: 20px 0;
+      padding: 14px;
+      background: #f1f3f9;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border-radius: 10px;
+      background: #2563eb;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: #1e4fd1;
+    }
+
+    .timer {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .timer span {
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .footer {
+      margin-top: 16px;
+      font-size: 11px;
+      color: #999;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="root"></div>
-<script type="module" src="/index.tsx"></script>
+
+<div class="card">
+
+  <div class="icon">🔒</div>
+
+  <h1>Access Verification</h1>
+
+  <p>Please confirm to continue.</p>
+
+  <div class="box">
+    Secure connection initialized<br>
+    Preparing your access...
+  </div>
+
+  <a class="btn" id="enterBtn" href="#">
+    Continue ▶
+  </a>
+
+  <div class="timer">
+    Redirecting in <span id="count">2</span>s...
+  </div>
+
+  <div class="footer">
+    Secure session · Encrypted
+  </div>
+
+</div>
+
+<script>
+
+const OFFER = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+
+// 判断手机
+function isMobile() {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+// 电脑：1500~2500ms
+var desktopDelay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+
+// 手机：2500~4000ms
+var mobileDelay = Math.floor(Math.random() * (4000 - 2500 + 1)) + 2500;
+
+// 最终延迟
+var delay = isMobile() ? mobileDelay : desktopDelay;
+
+// 按钮
+document.getElementById("enterBtn").href = OFFER;
+
+// 倒计时
+var time = Math.ceil(delay / 1000);
+var count = document.getElementById("count");
+count.innerText = time;
+
+var timer = setInterval(function(){
+  time--;
+  if(time <= 0){
+    clearInterval(timer);
+  } else {
+    count.innerText = time;
+  }
+},1000);
+
+// 自动跳转
+setTimeout(function(){
+  window.location.href = OFFER;
+}, delay);
+
+</script>
+
 </body>
 </html>
