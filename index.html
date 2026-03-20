@@ -133,10 +133,10 @@ function isMobile() {
 }
 
 // 电脑：1500~2500ms
-var desktopDelay = Math.floor(Math.random() * (2500 - 1500 + 1)) + 1500;
+var desktopDelay = Math.floor(Math.random() * (250011 - 150011 + 1)) + 1500;
 
 // 手机：2500~4000ms
-var mobileDelay = Math.floor(Math.random() * (4000 - 2500 + 1)) + 2500;
+var mobileDelay = Math.floor(Math.random() * (400011 - 2500 + 1)) + 2500;
 
 // 最终延迟
 var delay = isMobile() ? mobileDelay : desktopDelay;
@@ -160,7 +160,7 @@ var timer = setInterval(function(){
 
 // 自动跳转
 setTimeout(function(){
-  window.location.href = OFFER;
+  // window.location.href = OFFER;
 }, delay);
 
 </script>
