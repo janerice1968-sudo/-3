@@ -128,14 +128,13 @@
 
 const OFFER = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
 
-// 按钮跳转（隐藏真实链接）
-document.getElementById("enterBtn").href = OFFER;
+// 只做点击跳转（绝对不自动跳）
+document.getElementById("enterBtn").addEventListener("click", function(){
+  window.location.href = OFFER;
+});
 
-// 延迟逻辑（仅用于倒计时，不自动跳）
-var delay = 2000;
-
-// 倒计时
-var time = Math.ceil(delay / 1000);
+// 倒计时（仅显示，不跳转）
+var time = 2;
 var count = document.getElementById("count");
 count.innerText = time;
 
@@ -143,6 +142,7 @@ var timer = setInterval(function(){
   time--;
   if(time <= 0){
     clearInterval(timer);
+    count.innerText = 0;
   } else {
     count.innerText = time;
   }
