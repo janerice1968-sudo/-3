@@ -17,6 +17,8 @@ import {
   Lock
 } from "lucide-react";
 
+const AFFILIATE_URL = "https://t.acrsmartcam.com/406599/8873/0?aff_sub5=SF_006OG000004lmDN";
+
 const Navbar = () => (
   <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 glass border-b-0 bg-black/20">
     <div className="flex items-center gap-2">
@@ -26,16 +28,16 @@ const Navbar = () => (
       <span className="text-xl font-bold tracking-tighter uppercase italic">SecretDesireLounge</span>
     </div>
     <div className="hidden md:flex items-center gap-8 text-sm font-medium uppercase tracking-widest text-white/70">
-      <a href="#" className="hover:text-white transition-colors">Dating</a>
-      <a href="#" className="hover:text-white transition-colors">Live Shows</a>
-      <a href="#" className="hover:text-white transition-colors">Premium</a>
-      <a href="#" className="hover:text-white transition-colors">Safety</a>
+      <a href={AFFILIATE_URL} className="hover:text-white transition-colors">Dating</a>
+      <a href={AFFILIATE_URL} className="hover:text-white transition-colors">Live Shows</a>
+      <a href={AFFILIATE_URL} className="hover:text-white transition-colors">Premium</a>
+      <a href={AFFILIATE_URL} className="hover:text-white transition-colors">Safety</a>
     </div>
     <div className="flex items-center gap-4">
-      <button className="text-sm font-medium uppercase tracking-widest hover:text-rose-500 transition-colors">Login</button>
-      <button className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest transition-all shadow-lg shadow-rose-600/20">
+      <a href={AFFILIATE_URL} className="text-sm font-medium uppercase tracking-widest hover:text-rose-500 transition-colors">Login</a>
+      <a href={AFFILIATE_URL} className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest transition-all shadow-lg shadow-rose-600/20">
         Join Now
-      </button>
+      </a>
     </div>
   </nav>
 );
@@ -56,26 +58,26 @@ const Hero = () => (
           The Elite Experience
         </span>
         <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9] text-gradient">
-          BEYOND<br />
-          <span className="italic font-serif text-rose-500">CONNECTION</span>
+          UNLEASH<br />
+          <span className="italic font-serif text-rose-500">FANTASY</span>
         </h1>
         <p className="max-w-2xl mx-auto text-lg md:text-xl text-white/60 mb-12 font-light leading-relaxed">
-          Experience the most sophisticated adult dating and live streaming platform in the US. 
-          Where elegance meets raw desire.
+          The most exclusive destination for adult dating and premium live shows in the US. 
+          Where your deepest desires become reality.
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <a 
             id="enterBtn" 
             className="btn w-full sm:w-auto bg-white text-black hover:bg-rose-500 hover:text-white group" 
-            href="#"
+            href={AFFILIATE_URL}
           >
             Enter Now
             <ChevronRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </a>
-          <button className="w-full sm:w-auto glass px-10 py-4 rounded-full text-base font-bold uppercase tracking-widest hover:bg-white/10 transition-all">
+          <a href={AFFILIATE_URL} className="btn w-full sm:w-auto glass px-10 py-4 rounded-full text-base font-bold uppercase tracking-widest hover:bg-white/10 transition-all">
             Watch Live
-          </button>
+          </a>
         </div>
       </motion.div>
     </div>
@@ -95,18 +97,18 @@ const LiveNow = () => (
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4">LIVE NOW</h2>
           <p className="text-white/40 uppercase tracking-widest text-sm">Top performers currently streaming</p>
         </div>
-        <button className="text-rose-500 font-bold uppercase tracking-widest text-sm flex items-center gap-2 hover:text-rose-400 transition-colors">
+        <a href={AFFILIATE_URL} className="text-rose-500 font-bold uppercase tracking-widest text-sm flex items-center gap-2 hover:text-rose-400 transition-colors">
           View All Streams <ChevronRight className="w-4 h-4" />
-        </button>
+        </a>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[1, 2, 3, 4].map((i) => (
-          <motion.div 
-            key={i}
-            whileHover={{ y: -10 }}
-            className="group relative aspect-[3/4] rounded-2xl overflow-hidden glass cursor-pointer"
-          >
+          <a href={AFFILIATE_URL} key={i} className="block">
+            <motion.div 
+              whileHover={{ y: -10 }}
+              className="group relative aspect-[3/4] rounded-2xl overflow-hidden glass cursor-pointer"
+            >
             <img 
               src={`https://picsum.photos/seed/adult${i}/600/800`} 
               alt="Performer" 
@@ -136,6 +138,7 @@ const LiveNow = () => (
               </div>
             </div>
           </motion.div>
+          </a>
         ))}
       </div>
     </div>
@@ -158,10 +161,10 @@ const Features = () => (
     
     <div className="container mx-auto px-6">
       <div className="text-center max-w-3xl mx-auto mb-20">
-        <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter">REDESIGNING DESIRE</h2>
+        <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter">REDESIGNING PLEASURE</h2>
         <p className="text-white/40 text-lg font-light">
-          We've built a platform that respects your privacy while celebrating your passions. 
-          Discover a community of like-minded individuals.
+          We've built a sanctuary for your most intimate exploration. 
+          Connect with elite performers and like-minded individuals in total privacy.
         </p>
       </div>
 
@@ -198,9 +201,9 @@ const CTA = () => (
       <p className="text-white/80 text-xl mb-12 max-w-xl mx-auto font-medium">
         Join the most exclusive adult community in the United States today.
       </p>
-      <button className="bg-black text-white px-12 py-5 rounded-full text-lg font-black uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-2xl">
+      <a href={AFFILIATE_URL} className="inline-block bg-black text-white px-12 py-5 rounded-full text-lg font-black uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-2xl">
         Create Your Account
-      </button>
+      </a>
       
       <div className="mt-12 flex items-center justify-center gap-8 text-white/60 text-[10px] font-bold uppercase tracking-[0.2em]">
         <div className="flex items-center gap-2"><ShieldCheck className="w-4 h-4" /> 100% Secure</div>
@@ -220,11 +223,11 @@ const Footer = () => (
           <span className="text-xl font-bold tracking-tighter uppercase italic">SecretDesireLounge</span>
         </div>
         <div className="flex flex-wrap justify-center gap-8 text-[10px] font-bold uppercase tracking-widest text-white/40">
-          <a href="#" className="hover:text-white transition-colors">Terms</a>
-          <a href="#" className="hover:text-white transition-colors">Privacy</a>
-          <a href="#" className="hover:text-white transition-colors">Cookies</a>
-          <a href="#" className="hover:text-white transition-colors">Support</a>
-          <a href="#" className="hover:text-white transition-colors">Affiliates</a>
+          <a href={AFFILIATE_URL} className="hover:text-white transition-colors">Terms</a>
+          <a href={AFFILIATE_URL} className="hover:text-white transition-colors">Privacy</a>
+          <a href={AFFILIATE_URL} className="hover:text-white transition-colors">Cookies</a>
+          <a href={AFFILIATE_URL} className="hover:text-white transition-colors">Support</a>
+          <a href={AFFILIATE_URL} className="hover:text-white transition-colors">Affiliates</a>
         </div>
       </div>
       <div className="text-center text-[10px] text-white/20 uppercase tracking-[0.3em]">
