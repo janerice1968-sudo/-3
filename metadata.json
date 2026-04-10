@@ -1,5 +1,8 @@
 {
-  "name": "SecretDesireLounge - Premium Adult Dating & Live",
-  "description": "A sophisticated landing page for premium adult dating and live streaming services in the US.",
-  "requestFramePermissions": []
+  "name": "Secret Desire Lounge - Premium Dating & Live Streaming",
+  "description": "A sophisticated, high-end landing page for adult dating and live entertainment, featuring real-time matching and premium streaming previews.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
 }
