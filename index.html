@@ -1,66 +1,94 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Desire Lounge | Premium Adult Connections</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Age Verification Required</title>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FDFCFB;
-            color: #1A1A1A;
-            scroll-behavior: smooth;
+            background-color: #050505;
+            color: #ffffff;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        .font-serif {
-            font-family: 'Playfair Display', serif;
+
+        .content-box {
+            text-align: center;
+            padding: 30px 20px;
+            border: 1px solid #1a1a1a;
+            border-radius: 8px;
+            background-color: #0f0f0f;
+            max-width: 350px;
+            width: 85%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        .gradient-overlay {
-            background: linear-gradient(0deg, #FDFCFB 0%, rgba(253,252,251,0.2) 50%, rgba(253,252,251,0) 100%);
+
+        .warning-title {
+            color: #ff3b30;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
         }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
+
+        .warning-text {
+            font-size: 15px;
+            color: #a0a0a0;
+            margin-bottom: 35px;
+            line-height: 1.5;
         }
-        .accent-gradient {
-            background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px 0;
+            background-color: #ff3b30;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            box-sizing: border-box;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
         }
-        .card-shadow {
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+
+        .btn:active {
+            background-color: #cc2f26;
+            transform: translateY(1px);
         }
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); box-shadow: 0 20px 40px rgba(225, 29, 72, 0.3); }
-            50% { transform: scale(1.05); box-shadow: 0 25px 50px rgba(225, 29, 72, 0.5); }
-        }
-        .animate-breathe {
-            animation: breathe 3s ease-in-out infinite;
-        }
-        @keyframes slide-down {
-            0% { transform: translateY(-100%); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-        .animate-slide-down {
-            animation: slide-down 0.5s ease-out forwards;
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 11px;
+            color: #444;
         }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body>
-    <div id="root"></div>
-<script type="module" src="/index.tsx"></script>
+
+    <div class="content-box">
+        <div class="warning-title">18+ 专属内容验证</div>
+        <div class="warning-text">
+            本区域包含成人限制级内容。<br>
+            请确认您已年满 18 周岁。
+        </div>
+
+        <a class="btn" id="enterBtn" href="https://t.crdtg2.com/406599/9953/37712?aff_sub5=SF_006OG000004lmDN">
+            确认已满18岁并进入
+        </a>
+
+        <div class="footer-note">
+            Continuing implies consent to our terms.
+        </div>
+    </div>
+
 </body>
 </html>
